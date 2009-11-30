@@ -1,0 +1,16 @@
+<h1 class="heading">Create Employee  </h1><hr>
+  <%= error_messages_for 'employee' %>
+ 
+ <table  width="" border="0" >
+ <% form_for(:employee, @employee, :url=>{:action=>'create'}, :html=>{:multipart=>true}) do |form| %> 
+<tr  >
+      <td >
+        <%= render :partial => 'form' %>
+      </td>
+</tr>
+<tr >
+      <td ><%= submit_tag "Create", :class=>"button1" %></td>
+      <td><%= link_to image_tag("back",:border=>0), employees_path  %></td>
+</tr>
+<%end%>
+</table>

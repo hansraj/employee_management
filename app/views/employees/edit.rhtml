@@ -1,0 +1,24 @@
+ <%= error_messages_for 'employee' %>
+
+<h1 class="heading">Edit Employee</h1>
+<hr>
+ <table  width="%" border="0" >
+<% form_for(:employee, @employee, :url => employee_path(@employee), :html => {:multipart=>true, :method => "put"}) do |form| %> 
+<tr>
+    <td>
+    <%= render :partial => 'form' %>
+   </td>
+</tr>
+<tr>
+    <td>
+    <%= submit_tag 'Edit',:class=>"button1"%>
+   </td>
+</tr>
+<% end %>
+<tr>
+      <td>
+<%= link_to link_to image_tag("show",:border=>0), employee_path(@employee) %> |
+<%= link_to link_to image_tag("back",:border=>0), employees_path  %>
+</td>
+</tr>
+</table>

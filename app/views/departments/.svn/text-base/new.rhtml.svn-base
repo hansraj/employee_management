@@ -1,0 +1,20 @@
+<h1 class="heading">Create department</h1>
+<hr>
+<table align="right" width="100%" border="0" bgcolor="#FFFFFF" cellpadding="4" cellspacing="2">
+<tr>
+<% form_tag :action => 'create' do %>
+<td colspan ="2">
+<%= render :partial => 'form' %>
+</td>
+</tr>
+
+<tr>
+<td width="26%" align="left">
+<%= submit_tag "Create", :class=>"button1"%>
+<% end %>
+</td>
+<td width="74%" align="left">
+<%= link_to 'Back', :action => 'list' %>
+</td>
+</tr>
+</table>

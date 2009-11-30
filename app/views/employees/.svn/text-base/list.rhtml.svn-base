@@ -1,0 +1,49 @@
+<h1 class="heading">Employees</h1>
+<hr>
+ <%= error_messages_for 'employee' %>
+<table align="right" width="100%" border="0" cellpadding="4" cellspacing="1">
+<%if(session[:rolename] == "admin")%>
+    <tr>
+      <td colspan="12"><%= link_to '<label style="cursor:pointer;">New employee</label>'<<image_tag( 'add.gif', :border => 0 ),{ :action => 'new' }, { :style => "text-decoration:none; " } %></td>
+    </tr>
+ <%end%> 	
+	<tr class="row_header">
+    <th width="11%" class="row_header">Employee ID</th>
+    <th width="11%" class="row_header">Employee</th>
+    <th width="15%" class="row_header">Email</th>
+    <th width="15%" class="row_header">Personal email</th>
+    <th width="15%" class="row_header">Date of Birth</th>
+    <th width="11%" class="row_header">Joining Date</th>
+    <th width="9%" class="row_header">Contact</th>
+	 
+    <th width="8%"><font face="Verdana, Arial, Helvetica, sans-serif" color ="white">Username</font></th>
+  	<th colspan=2>&nbsp;</th>
+  </tr>
+
+<% for employee in @employees %>
+  <tr class="<%=cycle('odd_row','even_row')%>"> 
+	<td><%=employee.employee_id %></td>
+	<td><%= link_to employee.first_name.titleize<<' '<<employee.last_name.titleize, :action => 'show', :id => employee %></td>
+  <td><%=employee.office_email if employee.office_email %></td>
+  <td><%=employee.personal_email.gsub(',',' ') if employee.personal_email%></td>
+  <td><%=employee.dob.strftime("%d %b %Y") if employee.dob%></td>  
+  <td><%=employee.joining_date.strftime("%d %b %Y") %></td>
+  <td><%=employee.contact %></td>
+  <td><% if employee.user %><%= link_to employee.user.username, :controller=>'users', :action => 'edit', :id => employee %><%else%><%= link_to( "<font color = 'red'>create</font>", { :controller => 'users', :action => 'new', :id => employee }, { :style => "text-decoration:none; cursor:pointer;" } )%><%end%></td>
+  <td><%= link_to image_tag( "edit" , :border => 0 ), :action => 'edit', :id => employee %></td>
+  <% if( session[:rolename] == "admin" )%>
+  <td><%= link_to link_to image_tag( "delete", :border => 0 ), { :action => 'destroy', :id => employee }, :confirm => 'Are you sure?', :method => :post %></td>
+  <%end%>
+  </tr>
+<% end %>
+ <tr><td colspan="12"><a href ="javascript:history.go(-1)"><%link_to image_tag("back",:border=>0)%></a></td></tr>
+  <%if(session[:rolename] == "admin")%><tr><td colspan="12"><%= pagination_links @employee_pages%></td></tr><%end%>
+</table>
+
+ 
+
+
+
+
+
+

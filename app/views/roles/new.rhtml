@@ -1,0 +1,22 @@
+<h1 class="heading">Create Role </h1>
+<hr>
+<% form_for(:role, @role, :url => roles_path, :html =>{ :method => :post}) do |form| %> 
+<table align="right" width="100%" border="0" bgcolor="#FFFFFF" cellpadding="4" cellspacing="2">
+
+<tr>
+<td colspan ="2">
+<%= render :partial => 'form' %>
+</td>
+</tr>
+
+<tr>
+<td width="26%" align="left">
+<%= submit_tag "Create", :class=>"button1"%>
+<% end %>
+</td>
+<td width="74%" align="left">
+<%= link_to image_tag("back",:border=>0), roles_path %>
+</td>
+</tr>
+
+</table>
