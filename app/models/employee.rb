@@ -7,21 +7,33 @@ require 'digest/sha1'
 
 
 class Employee < ActiveRecord::Base
- belongs_to :department
- belongs_to :role
+ has_many :departments, :through => :employee_departments 
+ has_many :employee_departments 
+ belongs_to :designation
  has_many :time_sheets
  has_many :leaves
  has_many :employee_leave_status
- has_one :user, :dependent => :destroy
- validates_presence_of :first_name, :title, :department_id, :office_email
+
+ #has_one :user, :dependent => :destroy
+ belongs_to :user, :dependent => :destroy
+ validates_presence_of :first_name,  :office_email
  validates_uniqueness_of :first_name, :scope => :last_name
  validates_uniqueness_of  :office_email,:personal_email
- #validates_numericality_of :pan_no,:contact ,:passport_no 
+ #validates_numericality_of :pan_number,:contact ,:passport_number 
  #validates_uniqueness_of  :employee_id 
- #validates_uniqueness_of :pan_no, :allow_blank => true
- #validates_uniqueness_of :passport_no, :allow_blank => true
- #~ validates_format_of :pan_no,
+ #validates_uniqueness_of :pan_number, :allow_blank => true
+ #validates_uniqueness_of :passport_number, :allow_blank => true
+ #~ validates_format_of :pan_number,
     #~ :with => /^((^[A-Z]{5}*$)+[0-9]{4}+[A-Z]{1})$/i
+ #
+  has_attached_file :photo,
+    :styles => { :small_thumb => [ "50x50", :jpg ],  
+            :medium_thumb => [ "75x75", :jpg ],
+            :carousal => [ "100x100", :jpg ],
+            :detail_preview => [ "210x210", :jpg ]},#size set according to picture size available in xhtmls(brands_review_detail.html)
+    :url => "/images/layouts/:id/:style/:basename.:extension",
+    :default_url => "public/images/layouts/:id/:style.jpg"
+  validates_attachment_content_type :photo, :content_type => ['image/pjpeg','image/jpeg', 'image/png','image/x-png','image/gif'], :message=>"Invalid file format " 
 
   validates_format_of :office_email,
     :with => /^([^@]+)@((joshsoftware.)+[a-z]{2,})$/i
@@ -30,14 +42,14 @@ class Employee < ActiveRecord::Base
   before_destroy :delete
   
   def before_save        
-    pan_no =  Employee.find_by_pan_no(self.pan_no) if !self.pan_no.blank?
-    if  pan_no and !self.pan_no.blank? and self.id != pan_no.id
-     errors.add( :pan_no, "has already been taken" ) 
+    pan_number =  Employee.find_by_pan_number(self.pan_number) if !self.pan_number.blank?
+    if  pan_number and !self.pan_number.blank? and self.id != pan_number.id
+     errors.add( :pan_number, "has already been taken" ) 
      return false  
     end
-    passport_no =  Employee.find_by_passport_no(self.passport_no) if !self.passport_no.blank?
-    if  passport_no and !self.passport_no.blank? and self.id != passport_no.id
-     errors.add( :passport_no, "has already been taken" ) 
+    passport_number =  Employee.find_by_passport_number(self.passport_number) if !self.passport_number.blank?
+    if  passport_number and !self.passport_number.blank? and self.id != passport_number.id
+     errors.add( :passport_number, "has already been taken" ) 
      return false  
    end    
    employee_id =  Employee.find_by_employee_id(self.employee_id) if !self.employee_id.blank?

@@ -1,0 +1,23 @@
+<div id = "wrapper">
+  <%= render :partial => '/layouts/admin/top' %>
+  <div id = "container">
+    <%= render :partial => '/plugins/category' %>
+    <div id = "rightinner">
+      <div id = "titlegreenleft">
+        <div class="greentitle"><img src="/images/content.png" style="vertical-align:middle; margin-right:8px;" />Designations</div>
+      </div>
+      <br/><br/>
+      <% form_for @designation, :url =>  designation_path(@designation), :method => :put do |designation| %>
+        <div id = "matterinner" style="height:350px;">
+          <tr>
+            <td colspan="3" align="left" valign="top" bgcolor="#cfeb79"><div class="greentitle">Designation - Add New Designation</div></td>
+          </tr>
+          <%= render :partial => 'form', :locals => { :designation => designation } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</div><br/><br/><br/>
+  </div>
+

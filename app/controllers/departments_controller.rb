@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-layout "vendor/plugins/employee_management/app/views/layouts/home.html.erb"
+layout 'admin/home' 
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
 #  verify :method => :post, :only => [ :destroy, :create, :update ],

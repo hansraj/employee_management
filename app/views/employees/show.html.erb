@@ -1,0 +1,119 @@
+<div id = "wrapper">
+  <%= render :partial => '/layouts/admin/top' %>
+  <div id = "container">
+    <%= render :partial => '/layouts/admin/category' %>
+    <div id = "rightinner">
+      <div id = "titlegreenleft">
+        <div class="greentitle"><img src="/images/content.png" style="vertical-align:middle; margin-right:8px;" />Employee Management</div>
+      </div>
+      <br/><br/>
+      <div id = "matterinner">
+        <table  width="98%" border="0" cellpadding="4" cellspan="2" class="showclass" >
+          <tr>
+            <td colspan="2" align="right" >
+              <%= image_tag @employee.photo.url(:detail_preview)  %>  
+            </td>
+          </tr> 
+          <tr>
+            <td width="44%">
+              <fieldset>
+                <legend>Employee Detail</legend>
+                <table width="100%">
+                  <tr>
+                    <td>Employee ID</td>
+                    <td><%= @employee.employee_id %></td> 
+                  </tr> 
+                  <tr>
+                    <td>First name</td>
+                    <td><%= @employee.first_name %></td>   
+                  </tr> 
+                  <tr>
+                    <td>Last name</td>
+                    <td><%= @employee.last_name %></td>   
+                  </tr> 
+                  <tr>
+                    <td>Joining Date</td>
+                    <td><%= @employee.date_of_joining %></td>   
+                  </tr> 
+                  <tr>
+                    <td>Department</td>
+                    <td><%= @employee.departments.first.name %></td>
+                  </tr> 
+                  <tr>
+                    <td>Designation</td>
+                    <td><%= @employee.designation.name %></td>
+                  </tr> 
+                </table>  
+              </fieldset>
+            </td>
+            <td width="44%" valign="top">
+              <fieldset>
+                <legend> Personal Details </legend>
+                <table width="100%">
+                  <tr>
+                    <td>Date of Birth</td>
+                    <td><%= @employee.date_of_birth  %></td>   
+                  </tr> 
+                  <tr>
+                    <td>Passport No.</td>
+                    <td><%= @employee.passport_number  %></td>   
+                  </tr> 
+                  <tr>
+                    <td>Expiry Date </td>
+                    <td><%= @employee.passport_exp_date  %></td>   
+                  </tr> 
+                  <tr>
+                    <td>PAN No. </td>
+                    <td><%= @employee.pan_number  %> </td>   
+                  </tr>
+                  <tr>
+                    <td>Qualification</td>
+                    <td><%= @employee.qualification  %></td>
+                  </tr>
+                  <tr>
+                    <td>Year of Passing</td>
+                    <td><%= @employee.year_of_passing %></td>   
+                  </tr> 
+                </table>  
+              </fieldset>
+            </td>
+          </tr>
+          <tr>
+            <td colspan=2>
+              <fieldset>
+                <legend>Contact Details</legend>
+                <table width="100%"  >
+                  <tr>
+                    <td>Current Address</td>
+                    <td> <%= @employee.current_address %></td>  
+                    <td>Permanent Address</td>
+                    <td> <%= @employee.permanent_address %></td>  
+                  </tr> 
+                  <tr>
+                    <td>Off. Email</td>
+                    <td><%= @employee.office_email  %></td>   
+                    <td>Other Email</td>   
+                    <td><%= @employee.personal_email  %></td>   
+                  </tr> 
+                  <tr>
+                    <td>Mobile no.</td>
+                    <td><%= @employee.mobile %></td>   
+                    <td>Landline</td>
+                    <td><%= @employee.landline %></td>   
+                  </tr> 
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" valign="middle" class="tablelinks">
+              <div class="greenbut" style="margin-left:0px;"><%= link_to 'Edit', edit_employee_path(@employee)%></div>
+              <div class="greenbut" style="margin-left:20px;"><%= link_to 'CANCEL', employees_path %></div>	</td>
+          </tr>
+        </table>
+      </div>
+      <div id = "rightinnerbottom"></div>
+    </div>
+    <div style="clear:both"></div>
+  </div><br/><br/><br/>
+</div>

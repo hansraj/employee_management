@@ -1,0 +1,103 @@
+<% fields_for  :employee, @employee do |form| %> 
+  <table  width="98%" border="0" cellpadding="4" cellspan="2" >
+    <tr>
+      <td width="44%">
+        <fieldset>
+          <legend>Employee Detail</legend>
+          <table>
+            <%disabled = true if not ( current_user.role.title == "Admin" )%>
+            <tr>
+              <td>Employee ID</td>
+              <td><%= text_field 'employee', 'employee_id','size'=>'27' , :disabled => disabled%></td>   
+            </tr> 
+            <tr>
+              <td>First name</td>
+              <td><%= text_field 'employee', 'first_name','size'=>'27' %></td>   
+            </tr> 
+            <tr>
+              <td>Last name</td>
+              <td><%= text_field 'employee', 'last_name','size'=>'27' %></td>   
+            </tr> 
+            <tr>
+              <td>Joining Date</td>
+              <td><%= date_select 'employee', 'date_of_joining'  %></td>   
+            </tr> 
+            <% if( current_user.role.title == "Admin" )%>
+              <tr>
+                <td>Department</td>
+                <td><%= select 'department', 'id', @departments,{}, :style => "width:100%" %></td>
+              </tr> 
+              <tr>
+                <td>Designation</td>
+                <td><%= select 'employee', 'designation_id', @designations,{}, :style => "width:100%" %></td>
+              </tr> 
+            <%end%>
+          </table>  
+        </fieldset>
+      </td>
+      <td width="44%" valign="top">
+        <fieldset>
+          <legend> Personal Details </legend>
+          <table>
+            <tr>
+              <td>Date of Birth</td>
+              <td><%=date_select 'employee', 'date_of_birth', :start_year => 1950  %></td>   
+            </tr> 
+            <tr>
+              <td>Passport No.</td>
+              <td><%= text_field 'employee', 'passport_number','size'=>'27'  %></td>   
+            </tr> 
+            <tr>
+              <td>Expiry Date </td>
+              <td><%= date_select 'employee', 'passport_exp_date'  %></td>   
+            </tr> 
+            <tr>
+              <td>PAN No. </td>
+              <td><%= text_field 'employee', 'pan_number','size'=>'27'  %> </td>   
+            </tr>
+            <tr>
+              <td>Qualification</td>
+              <td><%= text_field 'employee', 'qualification','size'=>'27'  %></td>
+            </tr>
+            <tr>
+              <td>Year of Passing</td>
+              <td><%=  text_field 'employee', 'year_of_passing', 'size' => '27' %></td>   
+            </tr> 
+          </table>  
+        </fieldset>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2>
+        <fieldset>
+          <legend>Contact Details</legend>
+          <table>
+            <tr>
+              <td>Current Address</td>
+              <td> <%= text_area 'employee', 'current_address', :size => "25x5"%></td>  
+              <td>Permanent Address</td>
+              <td> <%= text_area 'employee', 'permanent_address', :size => "25x5"%></td>  
+            </tr> 
+            <tr>
+              <td>Off. Email</td>
+              <td><%= text_field 'employee', 'office_email','size'=>'27'  %></td>   
+              <td>Other Email</td>   
+              <td><%= text_field 'employee', 'personal_email','size'=>'27'  %></td>   
+            </tr> 
+            <tr>
+              <td>Mobile no.</td>
+              <td><%= text_field 'employee', 'mobile' ,'size'=>'27' %></td>   
+              <td>Landline</td>
+              <td><%= text_field 'employee', 'landline' ,'size'=>'27' %></td>   
+            </tr> 
+            <tr>
+              <td>Photo</td>
+              <td><%= form.file_field "photo" , :size=>20 %></td>   
+            </tr> 
+          </table>
+        </fieldset>
+      </td>
+    </tr>
+  </table>
+
+<%end%>
