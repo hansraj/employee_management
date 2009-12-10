@@ -18,7 +18,7 @@
         <h3> Employee Management </h3>
 			  <br/>
         <div>
-          <%= render :partial => 'form' %>
+          <%= render :partial => 'form' if not @hierarchies.blank?%>
         </div>
 			  <br/>
         <table width="601" border="1" cellspacing="0" cellpadding="0" bordercolor="#c5c3c3">
@@ -27,6 +27,7 @@
             <th width="111" align="center" valign="middle">By</th>
             <th width="111" align="center" valign="middle">Action</th>
           </tr>
+          <%= p @hierarchies %>  
           <% @hierarchies.each do |hierarchy| %>
             <tr> 
               <% employee = Employee.find(hierarchy.report_to)  %>  
