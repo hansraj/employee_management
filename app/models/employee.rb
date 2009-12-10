@@ -10,7 +10,7 @@ class Employee < ActiveRecord::Base
  has_many :departments, :through => :employee_departments 
  has_many :employee_departments 
  belongs_to :designation
- has_many :time_sheets
+ has_many :hierarchies
  has_many :leaves
  has_many :employee_leave_status
 
@@ -69,10 +69,6 @@ class Employee < ActiveRecord::Base
       if Employee.count.zero?
         raise "Can't delete last Employee"
       end
-      b=Employee.find(:first, :conditions =>"first_name='gautam' and role_id='1'")
-      if(b)
-        errors.add('You are not authorized to delete ') 
-      end    
   end
 
   def self.birthday

@@ -28,6 +28,14 @@ class EmployeesController < ApplicationController
   def index
     #@employee_pages, @employees = paginate :employees, :order => "employee_id ASC", :per_page => 10
     @employees = Employee.find(:all)
+    if current_user.role.title != "Admin"
+      employee = Employee.find_by_user_id(current_user)
+      if employee.blank?
+        redirect_to '/404.html' 
+        return
+      end
+      redirect_to employee_path(employee.id) 
+    end
   end
 
   def show
@@ -74,9 +82,11 @@ class EmployeesController < ApplicationController
     select_role
     select_designation
     @employee = Employee.find(params[:id])
-    params[:employee].delete('employee_id') if ( session[:rolename] != "admin" and params[:employee][:employee_id] )
-    params[:employee].delete('image_file') if params[:employee][:image_file].blank?
-      add_employee_department(@employee, params[:department][:id])
+    #params[:employee].delete('employee_id') if ( session[:rolename] != "admin" and params[:employee][:employee_id] )
+    #params[:employee].delete('image_file') if params[:employee][:image_file].blank?
+    if not params[:department].blank?
+      add_employee_department(@employee.id, params[:department][:id])
+    end
     if @employee.update_attributes(params[:employee])
       flash[:notice] = 'Employee was successfully updated.'
       redirect_to employee_path(@employee)
@@ -93,16 +103,13 @@ class EmployeesController < ApplicationController
   end
 
   def add_employee_department(emp_id, dept_id)
-      p emp_id 
-      p dept_id
-      emp_dept = EmployeeDepartment.find_emp_dept(emp_id, dept_id)
-      p emp_dept 
-      if emp_dept.blank? 
+    emp_dept = EmployeeDepartment.find_emp_dept(emp_id, dept_id)
+    if emp_dept.blank? 
       emp_dept = EmployeeDepartment.new("employee_id" => emp_id, "department_id" => dept_id )
       emp_dept.save!
-      elsif
-        emp_dept.first.department_id = dept_id
-        emp_dept.first.save!
-      end
+    elsif
+      emp_dept.first.department_id = dept_id
+      emp_dept.first.save!
+    end
   end
 end

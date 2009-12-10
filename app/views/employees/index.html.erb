@@ -11,7 +11,8 @@
         <div id = "innerlinks"> 
           <span class="link"><%= link_to "Employees" , employees_path  %></span> |
           <span class="link"><%= link_to "Departments" , departments_path  %></span> |
-          <span class="link"><%= link_to "Designations" , designations_path  %></span> 
+          <span class="link"><%= link_to "Designations" , designations_path  %></span> | 
+          <span class="link"><%= link_to "Hierarchies" , hierarchies_path  %></span> 
         </div>
 			  <br/>
         <h3> Employee Management </h3>
@@ -23,7 +24,7 @@
             <th width="94" align="center" valign="middle">Name</th>
             <th width="83" align="center" valign="middle">Email</th>
             <th width="111" align="center" valign="middle">Contact</th>
-            <th width="111" align="center" valign="middle">Username</th>
+            <th width="111" align="center" valign="middle">Designation</th>
             <th width="111" align="center" valign="middle">Action</th>
           </tr>
           <% @employees.each do |employee| %>
@@ -32,7 +33,7 @@
               <td align="center" valign="middle"><%= link_to employee.first_name.titleize<<' '<<employee.last_name.titleize, :action => 'show', :id => employee %></td>
               <td align="center" valign="middle"><%=employee.office_email if employee.office_email %></td>
               <td align="center" valign="middle"><%=employee.mobile %></td>
-              <td align="center" valign="middle"><% if employee.user %><%= link_to employee.user.username, :controller=>'users', :action => 'edit', :id => employee %><%else%><%= link_to( "<font color = 'red'>create</font>", { :controller => 'users', :action => 'new', :id => employee }, { :style => "text-decoration:none; cursor:pointer;" } )%><%end%></td>
+              <td align="center" valign="middle"><%=employee.designation.name  %></td>
               <td align="center" valign="middle" class="tablelinks">
                 <%= link_to "Edit", edit_employee_path(employee) %>|
                 <%= link_to "Delete", employee_path(employee), :method => "delete" %>

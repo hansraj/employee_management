@@ -1,0 +1,20 @@
+<% @hierarchy = Hierarchy.new %>  
+<% form_for @hierarchy, :url =>  hierarchies_path, :method => :post, :html => {:multipart => true} do |hierarchy| %>
+  <table width="531" border="0" cellspacing="0" cellpadding="0" style="background-color:#f7f7f7; border:0px solid #83954e;">
+    <tr>
+      <td align="left" valign="middle" ><strong>Report to : </strong></td>
+      <td align="left" valign="middle" class="tablelinks"><label>
+          <%= hierarchy.select :report_to, Employee.all.collect { |e| [e.first_name + e.last_name, e.id] }, {}, :style => "width:100%" %>
+        </label>  
+      </td>
+      <td align="right" valign="middle"  style="padding-right:9px;"><strong>Employee : </strong></td>
+      <td align="left" valign="middle" class="tablelinks"><label>
+          <%= hierarchy.select :employee_id, Employee.all.collect { |e| [e.first_name + e.last_name, e.id] }, {}, :style => "width:100%" %> 
+        </label>  
+      </td>
+      <td align="right" valign="middle" class="tablelinks">
+        <div class="greenbut" style="margin-left:10px;margin-top:5px;"><%= submit_tag 'ADD', :class => "greensubbut"%></div>
+      </td>
+    </tr>
+  </table> 
+<% end  %>

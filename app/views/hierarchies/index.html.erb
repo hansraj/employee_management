@@ -4,7 +4,7 @@
     <%= render :partial => '/plugins/category' %>
     <div id = "rightinner">
       <div id = "titlegreenleft">
-        <div class="greentitle"><img src="/images/content.png" style="vertical-align:middle; margin-right:8px;" />Content Management</div>
+        <div class="greentitle"><img src="/images/content.png" style="vertical-align:middle; margin-right:8px;" />Employee Management</div>
       </div>
       <br/><br/>
       <div id = "matterinner">
@@ -15,32 +15,30 @@
           <span class="link"><%= link_to "Hierarchies" , hierarchies_path  %></span> 
         </div>
 			  <br/>
-        <h3> Departments </h3>
-        <%= error_messages_for 'department' %>
+        <h3> Employee Management </h3>
+			  <br/>
+        <div>
+          <%= render :partial => 'form' %>
+        </div>
 			  <br/>
         <table width="601" border="1" cellspacing="0" cellpadding="0" bordercolor="#c5c3c3">
           <tr>
-            <th width="54" align="center" valign="middle">Department ID</td>
-            <th width="94" align="center" valign="middle">Name</th>
-            <th width="83" align="center" valign="middle">Description</th>
-            <th width="83" align="center" valign="middle">Action</th>
+            <th width="94" align="center" valign="middle">Report To</th>
+            <th width="111" align="center" valign="middle">By</th>
+            <th width="111" align="center" valign="middle">Action</th>
           </tr>
-          <% @departments.each do |department| %>
+          <% @hierarchies.each do |hierarchy| %>
             <tr> 
-              <td align="center" valign="middle"><%= department.id %></td>
-              <td align="center" valign="middle"><%= department.name %></td>
-              <td align="center" valign="middle"><%= department.description %></td>
+              <% employee = Employee.find(hierarchy.report_to)  %>  
+              <td align="center" valign="middle"><%= employee.first_name + ' ' + employee.last_name  %> </td>
+              <td align="center" valign="middle"><%= hierarchy.employee.first_name + ' '  + hierarchy.employee.last_name  %> </td>
               <td align="center" valign="middle" class="tablelinks">
-                <%= link_to "Edit", edit_department_path(department) %>|
-                <%= link_to "Delete", department_path(department), :method => "delete" %>
+                <%= link_to "Delete", hierarchy_path(hierarchy), :method => "delete" %>
               </td>
             </tr>
           <% end %>
         </table>
         <br/>
-        <div class="greenbut" style="margin-left:250px; _margin-left:120px;">
-          <%= link_to "Add New", new_department_path, :rel => "#overlay10" %>
-        </div>
         <br/> <br/>
       </div>
       <div id = "rightinnerbottom"></div>

@@ -16,3 +16,4 @@ load_paths.each do |path|
 end if config.environment == 'development'
 
 ActionController::Base.append_view_path(File.join(directory, "app", "views"))
+config.controller_paths << lib_path
