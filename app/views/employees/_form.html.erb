@@ -18,11 +18,11 @@
               <td>Last name</td>
               <td><%= text_field 'employee', 'last_name','size'=>'27' %></td>   
             </tr> 
-            <tr>
-              <td>Joining Date</td>
-              <td><%= date_select 'employee', 'date_of_joining'  %></td>   
-            </tr> 
             <% if( current_user.role.title == "Admin" )%>
+              <tr>
+                <td>Joining Date</td>
+                <td><%= date_select 'employee', 'date_of_joining'  %></td>   
+              </tr> 
               <tr>
                 <td>Department</td>
                 <td><%= select 'department', 'id', @departments,{}, :style => "width:100%" %></td>
